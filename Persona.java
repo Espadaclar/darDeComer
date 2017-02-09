@@ -5,29 +5,19 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Persona
-{
-    // instance variables - replace the example below with your own
-    private int x;
+class Persona {
+    private String name;
+    private boolean isHombre;
+    private int peso;
+    private int altura;
+    private int edad;
 
-    /**
-     * Constructor for objects of class Persona
-     */
-    public Persona()
-    {
-        // initialise instance variables
-        x = 0;
+    public Persona(String name, boolean isHombre, int peso, int altura, int edad) {
+        this.name = name;
+        this.isHombre = isHombre;
+        this.peso = peso;
+        this.altura = altura;
+        this.edad = edad;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    
 }
