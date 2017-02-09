@@ -88,5 +88,64 @@ public class PersonaTest
         assertEquals(2269, persona2.getCaloriasIngeridas());
     }
 
-    
+    @Test
+    public void TestCommit02()
+    {
+        assertEquals(0, persona1.getCaloriasIngeridas());
+        assertEquals("NO", persona1.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona1.contestar("¿Quieres comer?"));
+        assertEquals("SI", persona1.contestar("¿Todo ok?"));  
+        assertEquals("¿TE LLAMAS ANA?", persona1.contestar("¿Te llamas Ana?")); 
+        assertEquals("NO", persona1.contestar("¿Te llamas Luis?"));         
+        assertEquals(800, persona1.comer(comida1));
+        assertEquals(800, persona1.getCaloriasIngeridas());        
+        assertEquals("NO", persona1.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona1.contestar("¿Quieres comer?"));  
+        assertEquals("SI", persona1.contestar("¿Todo ok?"));   
+        assertEquals("¿TE LLAMAS ANA?", persona1.contestar("¿Te llamas Ana?"));   
+        assertEquals("NO", persona1.contestar("¿Te llamas Luis?"));          
+        assertEquals(600, persona1.comer(comida3)); 
+        assertEquals(1400, persona1.getCaloriasIngeridas());        
+        assertEquals("NO", persona1.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona1.contestar("¿Quieres comer?"));  
+        assertEquals("SI", persona1.contestar("¿Todo ok?"));  
+        assertEquals("¿TE LLAMAS ANA?", persona1.contestar("¿Te llamas Ana?"));         
+        assertEquals("NO", persona1.contestar("¿Te llamas Luis?"));          
+        assertEquals(1200, persona1.comer(comida2));  
+        assertEquals(2600, persona1.getCaloriasIngeridas());        
+        assertEquals("¿TE SIENTES BIEN?", persona1.contestar("¿Te sientes bien?"));
+        assertEquals("¿QUIERES COMER?", persona1.contestar("¿Quieres comer?"));  
+        assertEquals("¿TODO OK?", persona1.contestar("¿Todo ok?")); 
+        assertEquals("¿TE LLAMAS ANA?", persona1.contestar("¿Te llamas Ana?"));        
+        assertEquals("¿TE LLAMAS LUIS?", persona1.contestar("¿Te llamas Luis?"));          
+        
+        assertEquals(0, persona2.getCaloriasIngeridas());
+        assertEquals("NO", persona2.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona2.contestar("¿Quieres comer?"));
+        assertEquals("SI", persona2.contestar("¿Todo ok?"));    
+        assertEquals("NO", persona2.contestar("¿Te llamas Maria?")); 
+        assertEquals("¿TE LLAMAS LUIS?", persona2.contestar("¿Te llamas Luis?"));           
+        assertEquals(800, persona2.comer(comida1));
+        assertEquals(800, persona2.getCaloriasIngeridas());        
+        assertEquals("NO", persona2.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona2.contestar("¿Quieres comer?"));  
+        assertEquals("SI", persona2.contestar("¿Todo ok?"));  
+        assertEquals("NO", persona2.contestar("¿Te llamas Maria?"));   
+        assertEquals("¿TE LLAMAS LUIS?", persona2.contestar("¿Te llamas Luis?"));          
+        assertEquals(600, persona2.comer(comida3)); 
+        assertEquals(1400, persona2.getCaloriasIngeridas());        
+        assertEquals("NO", persona2.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona2.contestar("¿Quieres comer?"));  
+        assertEquals("SI", persona2.contestar("¿Todo ok?"));  
+        assertEquals("NO", persona2.contestar("¿Te llamas Maria?"));   
+        assertEquals("¿TE LLAMAS LUIS?", persona2.contestar("¿Te llamas Luis?"));          
+        assertEquals(600, persona2.comer(comida3));  
+        assertEquals(2000, persona2.getCaloriasIngeridas());        
+        assertEquals("NO", persona2.contestar("¿Te sientes bien?"));
+        assertEquals("SI", persona2.contestar("¿Quieres comer?"));  
+        assertEquals("SI", persona2.contestar("¿Todo ok?"));  
+        assertEquals("NO", persona2.contestar("¿Te llamas Maria?"));   
+        assertEquals("¿TE LLAMAS LUIS?", persona2.contestar("¿Te llamas Luis?"));          
+        
+    }
 }

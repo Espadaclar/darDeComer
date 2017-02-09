@@ -67,7 +67,7 @@ class Persona {
     public int getCaloriasIngeridas(){       
         return caloriasTotales;
     }
-    
+
     /**
      *
      */
@@ -77,19 +77,63 @@ class Persona {
             total = (10 * peso) + (6 * altura) + (5 * edad) + 5;
         }
         else{
-           total = (10 * peso) + (6 * altura) + (5 * edad) - 161;
+            total = (10 * peso) + (6 * altura) + (5 * edad) - 161;
         }
         return total;
     }
+
+    /**
+     * Ahora queremos que sea posible preguntarle cosas a la persona. Si no ha sobrepasado 
+     * su metabolismo basal, te contestará "SI" o "NO" (¡en mayúsculas!) dependiendo de si 
+     * la pregunta tiene una longitud (es decir, el número de letras de la misma) 
+     * divisible por 3 o no, respectivamente.
+
+     *En caso de que la persona ya haya sobrepasado el metabolismo basal o en el caso de 
+     *que tu pregunta contenga el nombre de la persona, responderá con la misma pregunta 
+     *que le has hecho pero gritando (es decir, el mismo texto de la pregunta pero
+     *en mayúsculas) indiferentemente de la longitud de a pregunta.
+     *
+     * El método que se utiliza para preguntar cosas a la persona debe llamarse 
+     * contestar, admite un único parámetro y debe devolver la respuesta además
+     * de imprimirla por pantalla.
+     */
+    /**
+     * Ahora queremos que sea posible preguntarle cosas a la persona. Si no ha sobrepasado 
+     * su metabolismo basal, te contestará "SI" o "NO" (¡en mayúsculas!) dependiendo de si 
+     * la pregunta tiene una longitud (es decir, el número de letras de la misma) 
+     * divisible por 3 o no, respectivamente.
+
+     *En caso de que la persona ya haya sobrepasado el metabolismo basal o en el caso de 
+     *que tu pregunta contenga el nombre de la persona, responderá con la misma pregunta 
+     *que le has hecho pero gritando (es decir, el mismo texto de la pregunta pero
+     *en mayúsculas) indiferentemente de la longitud de a pregunta.
+     *
+     * El método que se utiliza para preguntar cosas a la persona debe llamarse 
+     * contestar, admite un único parámetro y debe devolver la respuesta además
+     * de imprimirla por pantalla.
+     */
+    public String contestar(String pregunta){
+        String respuesta = pregunta;
+        int totalDeLetras = 0; // almacenará el nº total de letras que tine la pregunta.
+        if( pregunta.contains(this.name) ){
+            respuesta = respuesta.toUpperCase();
+            System.out.println(respuesta.toUpperCase());
+        }
+        else if( getCaloriasIngeridas() > calculoMetabolismoBasal() ){
+            respuesta = respuesta.toUpperCase();
+            System.out.println(respuesta.toUpperCase());
+        }
+        else if(getCaloriasIngeridas() < calculoMetabolismoBasal()){
+            int cadena = pregunta.length();
+            if(cadena % 3 == 0){
+                respuesta = "SI";
+            }
+            else{
+                respuesta = "NO";
+            }
+            
+        }
+        return respuesta;
+    }
 }
-
-
-
-
-
-
-
-
-
-
 
