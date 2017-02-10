@@ -22,5 +22,10 @@ class Comida {
         return caloriasPorComida;
     }
     
+    @Override
+    public String toString() {
+       
+       return  "____________" + nameComida + ", calorias.- " + caloriasPorComida ;
     
+    }
 }

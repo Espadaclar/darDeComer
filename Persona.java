@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 /**
  * Write a description of class Persona here.
  * 
@@ -18,6 +19,14 @@ class Persona {
 
     private ArrayList<Comida> comidas;//almacena todas las comidas en el mt comer().
 
+    public static String[] COMENSALES = {"Juán", "Francisco Javier", "Lorenzo", "Israel", "Cristian", "Ricardo", "Emilio", "José Ricardo",
+            "Luis Enrique", "Luis Federico", "Mario", "Nasrrudín", "José Manuel", "Aquiles", "Merquiades", "Francisco José",
+            "Narciso", "Gregorio", "Isidoro", "Raquel", "María", "Milagros", "Eva Carmina", "Jacinta", "Blas", "Fulgencio",
+            "Salusitano", "Elena", "Gemma", "Fermín", "Amancio", "Esther", "Ángela"};
+
+    public static String[] NOMBRES_COMIDAS = {"Cocido", "Langostinos", "Paella", "Espaguetis", "Pollo", "Ensalada", "Sardinas",
+            "Estofado", "Chuletas", "Patatas con carne", "Pulpo al ajillo", "Lacón", "Jamón"};
+
     public Persona(String name, boolean isHombre, int peso, int altura, int edad) {
         this.name = name;
         this.isHombre = isHombre;
@@ -31,6 +40,24 @@ class Persona {
 
         comidas = new ArrayList<>();
     }
+
+    /////////////////////////////////////////////// *******************************  /////////////////////////////////////////
+    public Persona() {
+        Random ale = new Random();
+        int valor = ale.nextInt();
+        name = Aleatorio();
+        isHombre = true;
+        peso = ale.nextInt(123) +59;
+        altura = ale.nextInt(80) +123;
+        edad = ale.nextInt(50) +13;
+        caloriasTotales = 0;
+
+        nameComidaMasCalorica = "";
+        comidaCalorica = null; // la doy valor en  el mt comer().
+
+        comidas = new ArrayList<>();
+    }
+    ////////////////////////////////////////////////////// **************************** //////////////////////////////////////
 
     public String getName() {
         return name;
@@ -156,38 +183,131 @@ class Persona {
         return nameComida;
     }
 
-    //     /**
-    //      * imprime por pantalla la lista de comidas ingeridas ordenadas de mayor a menor valor calórico
-    //      */
-    //         public void verListadoComidasIngeridas() {
-    //         if (caloriasTotales > 0) {
-    //             int cont = 0;
-    //             while (cont < comidas.size()) {
-    //                
-    //                 boolean encontrado = false;
-    //                 int totalComidas = 0;
-    //                  //Comida aux = new Comida("frejoles", 0);
-    //                 while ( totalComidas < comidas.size() && !encontrado) {
-    //                     if(comidas.get(totalComidas).getCaloriasPorComida() >= aux.getCaloriasPorComida()){
-    //                         aux = comidas.get(totalComidas);
-    //                         indiceMasCalorias = aux.getCaloriasPorComida();
-    //                     }
-    //                     totalComidas ++;
-    //                 }
-    //                 
-    //                 //comidas.remove( indiceMasCalorias);
-    //                 System.out.println( (cont +1)+ " " +aux);
-    //                 indiceMasCalorico2();
-    //                 cont ++;
-    //             }           
-    //         } else {
-    //             System.out.println("No ha tomado ninguna comida.");
-    //         }
-    //         System.out.println("");
-    //     }
+    /**
+     * imprime por pantalla la lista de comidas ingeridas ordenadas de mayor a menor valor calórico
+     */
+    public void verListadoComidasIngeridas() {
+        System.out.println(" ************ COMIDAS POR ORDEN DE CALORIAS ************** ");
+        System.out.println(" ");
+        String nombre = name;
+        System.out.println("Nombre del cliente.- " +nombre);
+        boolean encontrado = false;
+        while( !encontrado ){
+            encontrado = true;
+            int cont = 0;
+            while( cont <  (comidas.size() -1) ){
+                if( comidas.get(cont).getCaloriasPorComida() < comidas.get(cont +1).getCaloriasPorComida() ){
+                    encontrado = false;
+                    Comida aux =  comidas.get(cont);
+                    comidas.set(cont, comidas.get(cont +1));
+                    comidas.set(cont +1, aux);
+                }
+                cont ++;
+            }
+        }
+        for(Comida comidas: comidas){
+            System.out.println(" " +comidas);            
+        }
+        System.out.println("=============================");
+        System.out.println(" ");
+    }
+
+    public void verComidas() {
+        if(caloriasTotales > 0){
+            String nombre = name;
+            System.out.println(" ************ COMIDAS ************** ");
+            System.out.println(" ");
+            System.out.println("Nombre del cliente.- " +nombre);
+            int cont = 1;
+            for(Comida comidas: comidas){
+                System.out.println(cont+ " .-  " +comidas);
+                cont ++;
+            }
+            System.out.println("Total de calorias tomadas.-  ________________ " +caloriasTotales+ " calorías.");
+            System.out.println("=============================");
+            System.out.println(" " );
+        }
+        else{
+            System.out.println("No se ha comido!!! " );
+            System.out.println(" " );
+        }
+    }
+
+    ////////////////////////// **************************************************************** ////////////////////////////
+    /**
+     * mt para asignar un nombre al comensal, de forma
+     * aleatoria.------------------------------------------------- 11
+     */
+    private String Aleatorio() {
+        Random ale = new Random();
+        boolean encontrado = false;
+        while (!encontrado) {
+            // VL almacena un nº aletorio entre 0 y el nº de elementos de Array.
+            int aux = ale.nextInt(COMENSALES.length);
+            if (COMENSALES[aux] != null) {
+                name = COMENSALES[aux];
+                COMENSALES[aux] = null;
+                encontrado = true;
+            }
+        }
+        return name;
+    }
+
+    /**
+     * crea de forma aleatoria el nº de comidas pasadas por parámetro indique por parámetro el nº de comidas.
+     */
+    public int comer2(int numComidas){
+        if(numComidas > NOMBRES_COMIDAS.length){
+            numComidas = NOMBRES_COMIDAS.length -1;
+        }
+        int caloriasInge = -1;
+        int cont = 0;
+        while(cont < numComidas){
+            Random ale = new Random();
+            String nameComida = creaNombreAleatorioDeComida();
+            int calorias = ale.nextInt(352) + 76;
+
+            Comida comida = new Comida(nameComida, calorias);
+            comidas.add(comida);
+
+            comidaCalorica = new Comida(comida.getNameComida(), comida.getCaloriasPorComida());        
+            if(comida.getCaloriasPorComida() >= comidaCalorica.getCaloriasPorComida()){
+                comidaCalorica = comida; // de esta manera el atributo 'Comida comidaCalorica' almacena siempre la comida con más calorías;
+                nameComidaMasCalorica = comidaCalorica.getNameComida();// útil para poder ejecutar el mt getAlimentoMasCaloricoConsumido();
+            }                           
+
+            // int caloriasInge = -1;
+            if(caloriasTotales <= calculoMetabolismoBasal()){
+                caloriasInge = comida.getCaloriasPorComida();
+                caloriasTotales = caloriasTotales + caloriasInge; // suma las calorias de varias comidas.
+            }
+            else{
+                System.out.println("No quiero comer más gracias.");
+            }
+            cont ++;
+        }
+        return caloriasInge;
+
+    }
+
+    /**
+     * mt para asignar un nombre a la comida, de forma
+     * aleatoria.------------------------------------------------- 11
+     */
+    private String creaNombreAleatorioDeComida() {
+        Random ale = new Random();
+        String nameComida = "";
+        boolean encontrado = false;
+        while (!encontrado) {
+            // VL almacena un nº aletorio entre 0 y el nº de elementos de Array.
+            int aux = ale.nextInt(NOMBRES_COMIDAS.length);
+            if (NOMBRES_COMIDAS[aux] != null) {
+                nameComida = NOMBRES_COMIDAS[aux];
+                encontrado = true;
+                NOMBRES_COMIDAS[aux] = null;
+            }
+        }
+        return nameComida;
+    }
 }
-
-
-
-
 
