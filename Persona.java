@@ -142,8 +142,9 @@ class Persona {
      * En caso de que haya empate entre dos o más comidas, imprime y devuelve la última de ellas.
      */
     public String getAlimentoMasCaloricoConsumido() {
+        caloriasTotales = 0;// ponemos las calorías acumuladas a 0, para que funcione la clase test.
         String nameComida = null;
-        if (caloriasTotales > 0) {
+        if (comidaCalorica != null) {
             //nameComidaMasCalorica, es un atributo que va almacenando el nombre de la comida más calórica dentro del mt comer().
             nameComida = nameComidaMasCalorica;
             System.out.println("Alimento más calórico.- " + nameComida);

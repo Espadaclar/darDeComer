@@ -21,6 +21,8 @@ public class PersonaTest
     private Comida comida4;
     private Comida comida5;
     
+    private Comida comida6;
+    private Comida comida7;
     /**
      * Default constructor for test class PersonaTest
      */
@@ -43,6 +45,9 @@ public class PersonaTest
         comida3 = new Comida("Lentejas", 600);
         comida4 = new Comida("Cocido", 2000);
         comida5 = new Comida("Ensalada", 269);
+        
+        comida6 = new Comida("Pollo", 1200);
+        comida7 = new Comida("Acelgas", 50);
     }
 
     /**
@@ -147,5 +152,72 @@ public class PersonaTest
         assertEquals("NO", persona2.contestar("¿Te llamas Maria?"));   
         assertEquals("¿TE LLAMAS LUIS?", persona2.contestar("¿Te llamas Luis?"));          
         
+    }
+    
+    @Test
+     public void TestCommit03()
+    {
+        Persona persona3 = new Persona("Luisa", false, 57, 160, 24);
+        Persona persona4 = new Persona("Jose", true, 70, 178, 24);
+        Persona persona5 = new Persona("Juan", true, 77, 190, 38);
+
+
+        // Luisa, antes de comer.
+        assertEquals(0, persona3.getCaloriasIngeridas());
+        assertEquals(null, persona3.getAlimentoMasCaloricoConsumido());
+        // Come una ensalad.
+        assertEquals(269, persona3.comer(comida5));            
+        assertEquals("Ensalada", persona3.getAlimentoMasCaloricoConsumido());
+        // Come acelgas.
+        assertEquals(50, persona3.comer(comida7));            
+        assertEquals("Acelgas", persona3.getAlimentoMasCaloricoConsumido());
+        // Come un nuevo plato de Pizza
+        assertEquals(1200, persona3.comer(comida2));            
+        assertEquals("Pizza", persona3.getAlimentoMasCaloricoConsumido());
+        // Come otro plato de pollo 
+        assertEquals(1200, persona3.comer(comida6));            
+        assertEquals("Pollo", persona3.getAlimentoMasCaloricoConsumido());
+        // Para terminar se toma un cocido.
+        assertEquals(2000, persona3.comer(comida4));            
+        assertEquals("Cocido", persona3.getAlimentoMasCaloricoConsumido());
+
+        //Jose, antes de comer.
+        assertEquals(0, persona4.getCaloriasIngeridas());
+        assertEquals(null, persona4.getAlimentoMasCaloricoConsumido());
+        // Come una ensalad.
+        assertEquals(269, persona4.comer(comida5));            
+        assertEquals("Ensalada", persona4.getAlimentoMasCaloricoConsumido());
+         // Come acelgas.
+        assertEquals(50, persona4.comer(comida7));            
+        assertEquals("Acelgas", persona4.getAlimentoMasCaloricoConsumido());
+        // Come un nuevo plato de Pizza
+        assertEquals(1200, persona4.comer(comida2));            
+        assertEquals("Pizza", persona4.getAlimentoMasCaloricoConsumido());
+        // Come otro plato de pollo Pizza
+        assertEquals(1200, persona4.comer(comida6));            
+        assertEquals("Pollo", persona4.getAlimentoMasCaloricoConsumido());
+        // Para terminar se toma un cocido.
+        assertEquals(2000, persona4.comer(comida4));            
+        assertEquals("Cocido", persona4.getAlimentoMasCaloricoConsumido());
+
+        //Juan, antes de comer.
+        assertEquals(0, persona5.getCaloriasIngeridas());
+        assertEquals(null, persona5.getAlimentoMasCaloricoConsumido());
+        // Come una ensalad.
+        assertEquals(269, persona5.comer(comida5));            
+        assertEquals("Ensalada", persona5.getAlimentoMasCaloricoConsumido());
+         // Come acelgas.
+        assertEquals(50, persona5.comer(comida7));            
+        assertEquals("Acelgas", persona5.getAlimentoMasCaloricoConsumido());
+        // Come un nuevo plato de Pizza
+        assertEquals(1200, persona5.comer(comida2));            
+        assertEquals("Pizza", persona5.getAlimentoMasCaloricoConsumido());
+        // Come otro plato de pollo Pizza
+        assertEquals(1200, persona5.comer(comida6));            
+        assertEquals("Pollo", persona5.getAlimentoMasCaloricoConsumido());
+        // Para terminar se toma un cocido.
+        assertEquals(2000, persona5.comer(comida4));            
+        assertEquals("Cocido", persona5.getAlimentoMasCaloricoConsumido());
+
     }
 }
