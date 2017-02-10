@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 /**
  * Write a description of class Persona here.
  * 
@@ -12,20 +12,24 @@ class Persona {
     private int altura;
     private int edad;
     private int caloriasTotales;// suma las calorias de varias comidas.
-    
+
     private String nameComidaMasCalorica; // nombre de la comida con más calorias.
     private Comida comidaCalorica;
 
+    private ArrayList<Comida> comidas;//almacena todas las comidas en el mt comer().
+
     public Persona(String name, boolean isHombre, int peso, int altura, int edad) {
         this.name = name;
-        this.isHombre = true;
+        this.isHombre = isHombre;
         this.peso = peso;
         this.altura = altura;
         this.edad = edad;
         caloriasTotales = 0;
-        
+
         nameComidaMasCalorica = "";
         comidaCalorica = null; // la doy valor en  el mt comer().
+
+        comidas = new ArrayList<>();
     }
 
     public String getName() {
@@ -55,15 +59,16 @@ class Persona {
      *en caso de que no la coma.
      */
     public int comer(Comida comida){
-        
+        comidas.add(comida);
+
         comidaCalorica = new Comida(comida.getNameComida(), comida.getCaloriasPorComida());        
         if(comida.getCaloriasPorComida() >= comidaCalorica.getCaloriasPorComida()){
-           comidaCalorica = comida; // de esta manera el atributo 'Comida comidaCalorica' almacena siempre la comida con más calorías;
-           nameComidaMasCalorica = comidaCalorica.getNameComida();// útil para poder ejecutar el mt getAlimentoMasCaloricoConsumido();
+            comidaCalorica = comida; // de esta manera el atributo 'Comida comidaCalorica' almacena siempre la comida con más calorías;
+            nameComidaMasCalorica = comidaCalorica.getNameComida();// útil para poder ejecutar el mt getAlimentoMasCaloricoConsumido();
         }                           
-        
+
         int caloriasInge = -1;
-        if(caloriasTotales < calculoMetabolismoBasal()){
+        if(caloriasTotales <= calculoMetabolismoBasal()){
             caloriasInge = comida.getCaloriasPorComida();
             caloriasTotales = caloriasTotales + caloriasInge; // suma las calorias de varias comidas.
         }
@@ -112,28 +117,24 @@ class Persona {
      */
     public String contestar(String pregunta){
         String respuesta = pregunta;
-        int totalDeLetras = 0; // almacenará el nº total de letras que tine la pregunta.
-        if( pregunta.contains(this.name) ){
+
+        if (pregunta.contains(this.name) || ( getCaloriasIngeridas() > calculoMetabolismoBasal())){
             respuesta = respuesta.toUpperCase();
-            System.out.println(respuesta.toUpperCase());
         }
-        else if( getCaloriasIngeridas() > calculoMetabolismoBasal() ){
-            respuesta = respuesta.toUpperCase();
-            System.out.println(respuesta.toUpperCase());
-        }
-        else if(getCaloriasIngeridas() < calculoMetabolismoBasal()){
-            int cadena = pregunta.length();
-            if(cadena % 3 == 0){
+        else {
+
+            if(pregunta.length() % 3 == 0){
                 respuesta = "SI";
             }
             else{
                 respuesta = "NO";
             }
-            
+
         }
+        System.out.println(respuesta);    
         return respuesta;
     }
-    
+
     /**
      * Se pide que implementes el código necesario para disponer de un método llamado getAlimentoMasCaloricoConsumido
      * que imprima por pantalla y que devuelva el nombre de la comida más calórico ingerida hasta ahora por un usuario.
@@ -154,12 +155,37 @@ class Persona {
         }
         return nameComida;
     }
+
+    //     /**
+    //      * imprime por pantalla la lista de comidas ingeridas ordenadas de mayor a menor valor calórico
+    //      */
+    //         public void verListadoComidasIngeridas() {
+    //         if (caloriasTotales > 0) {
+    //             int cont = 0;
+    //             while (cont < comidas.size()) {
+    //                
+    //                 boolean encontrado = false;
+    //                 int totalComidas = 0;
+    //                  //Comida aux = new Comida("frejoles", 0);
+    //                 while ( totalComidas < comidas.size() && !encontrado) {
+    //                     if(comidas.get(totalComidas).getCaloriasPorComida() >= aux.getCaloriasPorComida()){
+    //                         aux = comidas.get(totalComidas);
+    //                         indiceMasCalorias = aux.getCaloriasPorComida();
+    //                     }
+    //                     totalComidas ++;
+    //                 }
+    //                 
+    //                 //comidas.remove( indiceMasCalorias);
+    //                 System.out.println( (cont +1)+ " " +aux);
+    //                 indiceMasCalorico2();
+    //                 cont ++;
+    //             }           
+    //         } else {
+    //             System.out.println("No ha tomado ninguna comida.");
+    //         }
+    //         System.out.println("");
+    //     }
 }
-
-
-
-
-
 
 
 
