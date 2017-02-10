@@ -146,6 +146,7 @@ class Persona {
         if (caloriasTotales > 0) {
             //nameComidaMasCalorica, es un atributo que va almacenando el nombre de la comida más calórica dentro del mt comer().
             nameComida = nameComidaMasCalorica;
+            System.out.println("Alimento más calórico.- " + nameComida);
         }
         else{
             System.out.println("No ha tomado ninguna comida.");
