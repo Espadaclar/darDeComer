@@ -101,7 +101,7 @@ class Persona {
      *en caso de que no la coma.
      */
     public int comer(Comida comida){
-       
+
         if( comida.getCaloriasPorComida() >= comidaCalorica.getCaloriasPorComida()){
             comidaCalorica = comida; // de esta manera el atributo 'Comida comidaCalorica' almacena siempre la comida con más calorías;
             nameComidaMasCalorica = comidaCalorica.getNameComida();// útil para poder ejecutar el mt getAlimentoMasCaloricoConsumido();
@@ -225,9 +225,50 @@ class Persona {
         System.out.println(" ");
     }
 
+    /**
+     * imprime por pantalla la lista de comidas ingeridas ordenadas de mayor a menor valor calórico
+     */
+    public Comida[] verListadoComidasIngeridas2() {
+        Comida[] comidaArray = new Comida[comidas.size()];//---VL para devolver
+
+        if(caloriasTotales > 0){
+            System.out.println(" ************ COMIDAS POR ORDEN DE CALORIAS ************** ");
+            System.out.println(" ");
+            String nombre = name;
+            System.out.println("Nombre del cliente.- " +nombre);
+            /////////////////////*************************************BUCLE BURBUJA.
+            boolean encontrado = false;
+            while( !encontrado ){
+                encontrado = true;
+                int cont = 0;
+                while( cont <  (comidas.size() -1) ){
+                    if( comidas.get(cont).getCaloriasPorComida() < comidas.get(cont +1).getCaloriasPorComida() ){
+                        encontrado = false;
+                        Comida aux =  comidas.get(cont);
+                        comidas.set(cont, comidas.get(cont +1));
+                        comidas.set(cont +1, aux);
+                    }
+                    cont ++;
+                }
+            }
+            for(int i = 0; i < comidas.size(); i ++){
+                comidaArray[i] = comidas.get(i);; 
+                System.out.println(i+ " " +comidas.get(i));            
+            }
+            System.out.println("=============================");
+            System.out.println(" ");
+        }
+        else{
+            System.out.println( name+ " ________ está esperando por la 1º comida!!!");
+            System.out.println("=============================");
+        }
+        return comidaArray;
+    }
+
     ////////////////////////// **************************************************************** //////////////////////////////
     //--------- MÉTODOS PARA FACILITAR EL DESARROLLO DE LA CODIFICACIÓN, ¡¡¡NADA QUE VER CON LO QUE SE PIDE. 
     ////////////////////////// **************************************************************** //////////////////////////////
+
     public void yVerComidas() {
         if(caloriasTotales > 0){
             String nombre = name;
@@ -287,7 +328,7 @@ class Persona {
     }
 
     /**
-     * crea de forma aleatoria el nº de comidas pasadas por parámetro indique por parámetro el nº de comidas.
+     * crea de forma aleatoria el nº de comidas pasadas por parámetro. Indique por parámetro el nº de comidas.
      */
     public int yComer2(int numComidas){
         if(numComidas > NOMBRES_COMIDAS.length){
@@ -302,13 +343,12 @@ class Persona {
 
             Comida comida = new Comida(nameComida, calorias);
             comidas.add(comida);
-                   
+
             if( comida.getCaloriasPorComida() >= comidaCalorica.getCaloriasPorComida()){
                 comidaCalorica = comida; // de esta manera el atributo 'Comida comidaCalorica' almacena siempre la comida con más calorías;
                 nameComidaMasCalorica = comidaCalorica.getNameComida();// útil para poder ejecutar el mt getAlimentoMasCaloricoConsumido();
             }                           
 
-            
             if(caloriasTotales <= calculoMetabolismoBasal()){
                 caloriasInge = comida.getCaloriasPorComida();
                 caloriasTotales = caloriasTotales + caloriasInge; // suma las calorias de varias comidas.
@@ -324,7 +364,7 @@ class Persona {
 
     /**
      * mt para asignar un nombre a la comida, de forma
-     * aleatoria.------------------------------------------------- 11
+     * aleatoria.-----------------------------------------------
      */
     private String creaNombreAleatorioDeComida() {
         Random ale = new Random();
@@ -360,6 +400,7 @@ class Persona {
         }
         return valor;
     }
+
     public String yNombreDelMasCalorico(){
         String valor = "";
         if(comidaCalorica != null){
@@ -368,5 +409,4 @@ class Persona {
         return valor;
     }
 }
-
 
